@@ -1,0 +1,42 @@
+2022.12.29 10:24:14 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/chasf/scalaexample/.metals/lsp.trace.json or /Users/chasf/Library/Caches/org.scalameta.metals/lsp.trace.json
+2022.12.29 10:24:14 INFO  logging to file /Users/chasf/scalaexample/.metals/metals.log
+2022.12.29 10:24:14 INFO  Started: Metals version 0.11.9 in workspace '/Users/chasf/scalaexample' for client Visual Studio Code 1.74.2.
+2022.12.29 10:24:15 INFO  time: initialize in 0.78s
+2022.12.29 10:24:15 WARN  Build server is not auto-connectable.
+2022.12.29 10:24:15 WARN  no build tool detected in workspace '/Users/chasf/scalaexample'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2022.12.29 10:24:27 INFO  
+2022.12.29 10:24:27 INFO  Template applied in /Users/chasf/./maven-scala-seed
+2022.12.29 10:24:27 INFO  
+2022.12.29 10:24:27 INFO  time: ran 'giter8.Giter8' in 1.97s
+Dec 29, 2022 11:07:45 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Dec 29, 2022 11:07:45 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2022.12.29 11:09:00 WARN  no build target for: /Users/chasf/scalaexample/src/main/scala/example/LocalPi.scala
+2022.12.29 11:09:01 INFO  no build target found for /Users/chasf/scalaexample/src/main/scala/example/LocalPi.scala. Using presentation compiler with project's scala-library version: 3.2.0
+2022.12.29 11:09:03 INFO  time: code lens generation in 1.11s
+2022.12.29 11:09:03 INFO  time: code lens generation in 2.28s
+2022.12.29 11:09:07 WARN  no build target for: /Users/chasf/scalaexample/src/main/scala/example/LocalPi.scala
+2022.12.29 11:09:10 WARN  no build target for: /Users/chasf/scalaexample/src/main/scala/example/LocalPi.scala
+2022.12.29 11:09:52 WARN  no build target for: /Users/chasf/scalaexample/src/main/scala/example/build.sbt
+2022.12.29 11:09:56 WARN  no build target for: /Users/chasf/scalaexample/build.sbt
+2022.12.29 11:09:56 WARN  no build target for: /Users/chasf/scalaexample/build.sbt
+2022.12.29 11:10:01 WARN  no build target for: /Users/chasf/scalaexample/src/main/scala/example/LocalPi.scala
+2022.12.29 11:12:07 INFO  shutting down Metals
+2023.06.23 11:42:50 INFO  Started: Metals version 0.11.12 in workspace '/Users/chasf/autoscaling-example' for client Visual Studio Code 1.79.2.
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.license.VersionPrinter printVersionOnly
+INFO: Flyway Community Edition 9.16.3 by Redgate
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: See release notes here: https://rd.gt/416ObMi
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: 
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.database.base.BaseDatabaseType createDatabase
+INFO: Database: jdbc:h2:file:/Users/chasf/autoscaling-example/.metals/metals (H2 2.1)
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.command.DbValidate validate
+INFO: Successfully validated 4 migrations (execution time 00:00.013s)
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.command.DbMigrate migrateGroup
+INFO: Current version of schema "PUBLIC": 4
+Jun 23, 2023 11:42:50 AM org.flywaydb.core.internal.command.DbMigrate logSummary
+INFO: Schema "PUBLIC" is up to date. No migration necessary.
+2023.06.23 11:42:50 INFO  time: initialize in 0.4s
+2023.06.23 11:42:51 WARN  Build server is not auto-connectable.
