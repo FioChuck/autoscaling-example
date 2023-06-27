@@ -4392,3 +4392,5 @@ java.lang.RuntimeException: invalid symbol format
 2023.06.27 14:16:36 INFO  time: compiled autoscaling-example in 0.9s
 2023.06.27 14:50:43 INFO  compiling autoscaling-example (1 scala source)
 2023.06.27 14:50:43 INFO  time: compiled autoscaling-example in 0.62s
+2023.06.27 15:13:09 INFO  compiling autoscaling-example (1 scala source)
+2023.06.27 15:13:09 INFO  time: compiled autoscaling-example in 0.68s
