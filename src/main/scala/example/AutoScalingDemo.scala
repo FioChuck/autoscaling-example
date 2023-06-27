@@ -27,12 +27,13 @@ object AutoScalingDemo {
     val wiki =
       spark.read
         .format("bigquery")
-        .option("table", "cf-data-analytics.spark_autoscaling.wikidata")
+        .option("table", "bigquery-public-data.wikipedia.wikidata")
         .load()
         .select($"id", $"en_label", $"en_description")
         .withColumn("wiki_id", $"id")
         .withColumn("en_label_lower", lower($"en_label"))
         .drop("id")
+        .limit(10000)
 
     val stack =
       spark.read
@@ -48,7 +49,7 @@ object AutoScalingDemo {
         .withColumn("title_lower", lower(col("title")))
         .withColumn("keyword", explode(split($"title_lower", "[ ]")))
         .drop("id")
-        .limit(1000)
+        .limit(10000)
 
     val out =
       wiki
