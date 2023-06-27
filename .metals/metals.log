@@ -4406,3 +4406,6 @@ df.write \
 2023.06.27 15:37:36 INFO  time: compiled autoscaling-example in 90ms
 2023.06.27 15:40:16 INFO  compiling autoscaling-example (1 scala source)
 2023.06.27 15:40:16 INFO  time: compiled autoscaling-example in 0.61s
+2023.06.27 15:56:58 INFO  compiling autoscaling-example (1 scala source)
+2023.06.27 15:56:58 WARN  Could not load snapshot text for /Users/chasf/autoscaling-example/src/main/scala/example/AutoScalingDemo.scala
+2023.06.27 15:56:58 INFO  time: compiled autoscaling-example in 0.57s
