@@ -33,7 +33,7 @@ object AutoScalingDemo {
         .withColumn("wiki_id", $"id")
         .withColumn("en_label_lower", lower($"en_label"))
         .drop("id")
-        .limit(10000)
+        .limit(100000)
 
     val stack =
       spark.read
@@ -49,7 +49,7 @@ object AutoScalingDemo {
         .withColumn("title_lower", lower(col("title")))
         .withColumn("keyword", explode(split($"title_lower", "[ ]")))
         .drop("id")
-        .limit(10000)
+        .limit(100000)
 
     val out =
       wiki
