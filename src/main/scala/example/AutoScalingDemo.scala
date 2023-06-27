@@ -61,13 +61,20 @@ object AutoScalingDemo {
 
     out.write
       .format("bigquery")
-      .option(
-        "writeMethod",
-        "direct"
-      )
+      // .option(
+      //   "writeMethod",
+      //   "direct"
+      // )
+      .option("temporaryGcsBucket","cf-spark-temp") 
       .mode("overwrite")
       .save(
         "cf-data-analytics.spark_autoscaling.output"
       )
   }
 }
+
+
+df.write \
+  .format("bigquery") \
+  .option("temporaryGcsBucket","some-bucket") \
+  .save("dataset.table")

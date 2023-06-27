@@ -4394,3 +4394,13 @@ java.lang.RuntimeException: invalid symbol format
 2023.06.27 14:50:43 INFO  time: compiled autoscaling-example in 0.62s
 2023.06.27 15:13:09 INFO  compiling autoscaling-example (1 scala source)
 2023.06.27 15:13:09 INFO  time: compiled autoscaling-example in 0.68s
+2023.06.27 15:37:31 ERROR scalafmt: /Users/chasf/autoscaling-example/src/main/scala/example/AutoScalingDemo.scala:69: error: [dialect scala213] ; expected but . found
+      .mode("overwrite")
+      ^
+2023.06.27 15:37:31 INFO  compiling autoscaling-example (1 scala source)
+2023.06.27 15:37:31 INFO  time: compiled autoscaling-example in 0.16s
+2023.06.27 15:37:36 ERROR scalafmt: /Users/chasf/autoscaling-example/src/main/scala/example/AutoScalingDemo.scala:77: error: [dialect scala213] illegal start of definition identifier
+df.write \
+^
+2023.06.27 15:37:36 INFO  compiling autoscaling-example (1 scala source)
+2023.06.27 15:37:36 INFO  time: compiled autoscaling-example in 90ms
