@@ -3,11 +3,9 @@
 *.log
 .bloop/
 .bsp/
-.metals
 .vscode
 .scalafmt.conf
-project/
+project/project/
+project/target/
 target/
-.metals/metals.mv.db
-.metals/metals.log
-.metals/metals.mv.db
+.metals/

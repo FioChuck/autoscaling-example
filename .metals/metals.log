@@ -117,3 +117,31 @@ INFO: Schema "PUBLIC" is up to date. No migration necessary.
 2023.06.27 12:36:59 INFO  time: indexed workspace in 2.23s
 Jun 27, 2023 12:38:30 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTrace
+2023.06.27 12:39:31 INFO  Shutting down server
+2023.06.27 12:39:31 INFO  shutting down Metals
+2023.06.27 12:39:31 INFO  Shut down connection with build server.
+2023.06.27 12:39:31 INFO  Shut down connection with build server.
+2023.06.27 12:39:31 INFO  Shut down connection with build server.
+2023.06.27 12:39:31 INFO  Exiting server
+2023.06.27 12:39:59 INFO  Started: Metals version 0.11.12 in workspace '/Users/chasf/autoscaling-example' for client Visual Studio Code 1.79.2.
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.license.VersionPrinter printVersionOnly
+INFO: Flyway Community Edition 9.16.3 by Redgate
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: See release notes here: https://rd.gt/416ObMi
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.license.VersionPrinter printVersion
+INFO: 
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.database.base.BaseDatabaseType createDatabase
+INFO: Database: jdbc:h2:file:/Users/chasf/autoscaling-example/.metals/metals (H2 2.1)
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.command.DbValidate validate
+INFO: Successfully validated 4 migrations (execution time 00:00.017s)
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.command.DbMigrate migrateGroup
+INFO: Current version of schema "PUBLIC": 4
+Jun 27, 2023 12:39:59 PM org.flywaydb.core.internal.command.DbMigrate logSummary
+INFO: Schema "PUBLIC" is up to date. No migration necessary.
+2023.06.27 12:39:59 INFO  time: initialize in 0.43s
+2023.06.27 12:40:00 INFO  Attempting to connect to the build server...
+2023.06.27 12:40:00 INFO  Bloop uses /Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home defined at /Users/chasf/.bloop/bloop.json
+2023.06.27 12:40:00 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/chasf/autoscaling-example/.metals/bsp.trace.json or /Users/chasf/Library/Caches/org.scalameta.metals/bsp.trace.json
+2023.06.27 12:40:00 INFO  time: Connected to build server in 0.23s
+2023.06.27 12:40:00 INFO  Connected to Build server: Bloop v1.5.6
+2023.06.27 12:40:03 INFO  time: indexed workspace in 2.45s
