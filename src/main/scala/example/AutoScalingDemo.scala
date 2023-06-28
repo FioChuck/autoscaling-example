@@ -10,17 +10,17 @@ object AutoScalingDemo {
 
     val spark = SparkSession.builder
       .appName("Autoscaling Demo")
-      // .config("spark.master", "local[16]") // local dev
-      // .config(
-      //   "spark.hadoop.fs.AbstractFileSystem.gs.impl",
-      //   "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
-      // )
-      // .config("spark.hadoop.fs.gs.project.id", "cf-data-analytics")
-      // .config("spark.hadoop.google.cloud.auth.service.account.enable", "true")
-      // .config(
-      //   "spark.hadoop.google.cloud.auth.service.account.json.keyfile",
-      //   "/Users/chasf/Desktop/cf-data-analytics-f8ccb6c85b39.json"
-      // )
+      .config("spark.master", "local[16]") // local dev
+      .config(
+        "spark.hadoop.fs.AbstractFileSystem.gs.impl",
+        "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
+      )
+      .config("spark.hadoop.fs.gs.project.id", "cf-data-analytics")
+      .config("spark.hadoop.google.cloud.auth.service.account.enable", "true")
+      .config(
+        "spark.hadoop.google.cloud.auth.service.account.json.keyfile",
+        "/Users/chasf/Desktop/cf-data-analytics-f8ccb6c85b39.json"
+      )
       .getOrCreate()
 
     spark.conf.set("viewsEnabled", "true")
@@ -56,17 +56,16 @@ object AutoScalingDemo {
     //   .withColumn("keyword", explode(split($"title_lower", "[ ]")))
     //   .drop("id")
 
-    // val wiki =
-    //   spark.read
-    //     .format("bigquery")
-    //     .option("table", "bigquery-public-data.wikipedia.wikidata")
-    //     .load()
-    //     .select($"id", $"en_label", $"en_description")
-    //     .withColumn("wiki_id", $"id")
-    //     .withColumn("en_label_lower", lower($"en_label"))
-    //     .drop("id")
-
-    // .repartition(1000)
+    val wiki =
+      spark.read
+        .format("bigquery")
+        .option("table", "bigquery-public-data.wikipedia.wikidata")
+        .load()
+        .select($"id", $"en_label", $"en_description")
+        .withColumn("wiki_id", $"id")
+        .withColumn("en_label_lower", lower($"en_label"))
+        .drop("id")
+        .repartition(1000)
 
     val stack =
       spark.read
@@ -75,10 +74,10 @@ object AutoScalingDemo {
           "table",
           "bigquery-public-data.stackoverflow.posts_questions"
         )
-        // .option(
-        //   "filter",
-        //   "view_count > 10000"
-        // )
+        .option(
+          "filter",
+          "view_count > 10000"
+        )
         .load()
         .filter($"title".isNotNull)
         .select($"id", $"title", $"body", $"view_count")
@@ -86,30 +85,19 @@ object AutoScalingDemo {
         .withColumn("title_lower", lower(col("title")))
         .withColumn("keyword", explode(split($"title_lower", "[ ]")))
         .drop("id")
-    // .repartition(1000)
+        .repartition(1000)
 
-    // val out =
-    //   wiki
-    //     .join(
-    //       stack,
-    //       wiki("en_label_lower") === stack("keyword"),
-    //       "inner"
-    //     )
-    // .repartition(1000)
+    val out =
+      wiki
+        .join(
+          stack,
+          wiki("en_label_lower") === stack("keyword"),
+          "inner"
+        )
+        .hint("SHUFFLE_HASH")
+        .repartition(1000)
 
-    // out.write
-    //   .format("bigquery")
-    //   // .option(
-    //   //   "writeMethod",
-    //   //   "direct"
-    //   // )
-    //   .option("temporaryGcsBucket", "cf-spark-temp")
-    //   .mode("overwrite")
-    //   .save(
-    //     "cf-data-analytics.spark_autoscaling.output"
-    //   )
-
-    stack.write
+    out.write
       .format("bigquery")
       // .option(
       //   "writeMethod",
@@ -118,7 +106,19 @@ object AutoScalingDemo {
       .option("temporaryGcsBucket", "cf-spark-temp")
       .mode("overwrite")
       .save(
-        "cf-data-analytics.spark_autoscaling.stack_skew"
+        "cf-data-analytics.spark_autoscaling.output"
       )
+
+    // stack.write
+    //   .format("bigquery")
+    //   // .option(
+    //   //   "writeMethod",
+    //   //   "direct"
+    //   // )
+    //   .option("temporaryGcsBucket", "cf-spark-temp")
+    //   .mode("overwrite")
+    //   .save(
+    //     "cf-data-analytics.spark_autoscaling.stack_skew"
+    //   )
   }
 }
