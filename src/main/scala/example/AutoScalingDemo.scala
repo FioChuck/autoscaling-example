@@ -33,6 +33,7 @@ object AutoScalingDemo {
         .withColumn("wiki_id", $"id")
         .withColumn("en_label_lower", lower($"en_label"))
         .drop("id")
+        .repartition(1000)
     // .limit(10000000)
 
     val stack =
@@ -50,6 +51,7 @@ object AutoScalingDemo {
         .withColumn("title_lower", lower(col("title")))
         .withColumn("keyword", explode(split($"title_lower", "[ ]")))
         .drop("id")
+        .repartition(1000)
 
     val out =
       wiki
@@ -58,7 +60,6 @@ object AutoScalingDemo {
           wiki("en_label_lower") === stack("keyword"),
           "inner"
         )
-        .repartition(1000)
 
     out.write
       .format("bigquery")

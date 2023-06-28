@@ -4419,3 +4419,15 @@ WARNING: Unmatched cancel notification for request id 474
 2023.06.28 09:27:29 INFO  time: compiled autoscaling-example in 0.56s
 2023.06.28 11:18:47 INFO  compiling autoscaling-example (1 scala source)
 2023.06.28 11:18:47 INFO  time: compiled autoscaling-example in 0.83s
+Jun 28, 2023 11:26:21 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 589
+2023.06.28 11:26:24 INFO  compiling autoscaling-example (1 scala source)
+2023.06.28 11:26:24 INFO  time: compiled autoscaling-example in 0.27s
+2023.06.28 11:26:34 INFO  compiling autoscaling-example (1 scala source)
+2023.06.28 11:26:34 INFO  time: compiled autoscaling-example in 0.19s
+2023.06.28 11:26:35 INFO  compiling autoscaling-example (1 scala source)
+2023.06.28 11:26:35 INFO  time: compiled autoscaling-example in 68ms
+2023.06.28 11:26:35 INFO  compiling autoscaling-example (1 scala source)
+2023.06.28 11:26:35 INFO  time: compiled autoscaling-example in 62ms
+2023.06.28 11:27:20 INFO  compiling autoscaling-example (1 scala source)
+2023.06.28 11:27:20 INFO  time: compiled autoscaling-example in 0.55s
