@@ -4417,3 +4417,5 @@ Jun 28, 2023 9:26:59 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellat
 WARNING: Unmatched cancel notification for request id 474
 2023.06.28 09:27:29 INFO  compiling autoscaling-example (1 scala source)
 2023.06.28 09:27:29 INFO  time: compiled autoscaling-example in 0.56s
+2023.06.28 11:18:47 INFO  compiling autoscaling-example (1 scala source)
+2023.06.28 11:18:47 INFO  time: compiled autoscaling-example in 0.83s

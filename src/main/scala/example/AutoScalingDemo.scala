@@ -43,13 +43,13 @@ object AutoScalingDemo {
           "bigquery-public-data.stackoverflow.stackoverflow_posts"
         )
         .load()
+        .limit(10000000)
         .filter($"title".isNotNull)
         .select($"id", $"title", $"body")
         .withColumn("stack_id", $"id")
         .withColumn("title_lower", lower(col("title")))
         .withColumn("keyword", explode(split($"title_lower", "[ ]")))
         .drop("id")
-        .limit(10000000)
 
     val out =
       wiki
