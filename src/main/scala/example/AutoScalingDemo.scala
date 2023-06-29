@@ -264,7 +264,7 @@ object AutoScalingDemo {
 
     val transactions = df2.union(df_skew_out)
 
-    ///// Create Fraud Predictions Table /////
+    /// Create Fraud Predictions Table /////
     val df3 = transactions
       .select($"transaction_id")
       .withColumn("wellsfargo", rand(seed = 1))
@@ -286,16 +286,6 @@ object AutoScalingDemo {
           .otherwise("false")
       )
 
-    // val out =
-    //   wiki
-    //     .hint("SHUFFLE_HASH")
-    //     .join(
-    //       stack,
-    //       wiki("en_label_lower") === stack("keyword"),
-    //       "inner"
-    //     )
-    //     .repartition(1000)
-
     df4.write
       .format("bigquery")
       .option("temporaryGcsBucket", "cf-spark-temp")
@@ -311,6 +301,32 @@ object AutoScalingDemo {
       .save(
         "cf-data-analytics.spark_autoscaling.transactions"
       )
+
+    // val transactions =
+    //   spark.read
+    //     .format("bigquery")
+    //     .option("table", "cf-data-analytics.spark_autoscaling.transactions")
+    //     .load()
+
+    // val fraud =
+    //   spark.read
+    //     .format("bigquery")
+    //     .option(
+    //       "table",
+    //       "cf-data-analytics.spark_autoscaling.fraud_predictions"
+    //     )
+    //     .load()
+
+    // val out =
+    //   transactions
+    //     .join(
+    //       fraud,
+    //       transactions("transaction_id") === fraud("transaction_id"),
+    //       "inner"
+    //     )
+    //     .repartition(100)
+
+    // print("done")
 
   }
 }
