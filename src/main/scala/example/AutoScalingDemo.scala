@@ -26,7 +26,7 @@ object AutoScalingDemo {
 
     import spark.implicits._
 
-    val rows = 10000000
+    val rows = 100000000
 
 //
     val arr = Array(
