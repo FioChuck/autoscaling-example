@@ -232,7 +232,7 @@ object AutoScalingDemo {
       "Fiorenza"
     )
 
-    /////
+    ///// Create Transactions Table /////
     val df = spark.sqlContext
       .range(0, rows) // define the number of mock data rows
 
@@ -247,6 +247,7 @@ object AutoScalingDemo {
       )
       .withColumn("transaction_id", expr("uuid()"))
 
+    // Add Skew to data
     val df_skew = spark.sqlContext
       .range(0, rows / 10)
 
@@ -263,6 +264,7 @@ object AutoScalingDemo {
 
     val transactions = df2.union(df_skew_out)
 
+    ///// Create Fraud Predictions Table /////
     val df3 = transactions
       .select($"transaction_id")
       .withColumn("wellsfargo", rand(seed = 1))
@@ -294,7 +296,6 @@ object AutoScalingDemo {
     //     )
     //     .repartition(1000)
 
-    // out.explain()
     df4.write
       .format("bigquery")
       .option("temporaryGcsBucket", "cf-spark-temp")
