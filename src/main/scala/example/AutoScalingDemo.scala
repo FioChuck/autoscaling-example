@@ -76,7 +76,7 @@ object AutoScalingDemo {
         )
         .option(
           "filter",
-          "view_count > 10000"
+          "view_count > 100000"
         )
         .load()
         .filter($"title".isNotNull)
@@ -89,14 +89,15 @@ object AutoScalingDemo {
 
     val out =
       wiki
+        .hint("SHUFFLE_HASH")
         .join(
           stack,
           wiki("en_label_lower") === stack("keyword"),
           "inner"
         )
-        .hint("SHUFFLE_HASH")
         .repartition(1000)
 
+    // out.explain()
     out.write
       .format("bigquery")
       // .option(
