@@ -321,7 +321,7 @@ object AutoScalingDemo {
       transactions
         .join(
           fraud,
-          transactions("transaction_id") === fraud("transaction_id"),
+          Seq("transaction_id"),
           "inner"
         )
         .repartition(100)
