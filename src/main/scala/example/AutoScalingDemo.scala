@@ -232,6 +232,7 @@ object AutoScalingDemo {
       "Fiorenza"
     )
 
+    /////
     val df = spark.sqlContext
       .range(0, rows) // define the number of mock data rows
 
@@ -247,7 +248,7 @@ object AutoScalingDemo {
       .withColumn("transaction_id", expr("uuid()"))
 
     val df_skew = spark.sqlContext
-      .range(0, rows / 10) // define the number of mock data rows
+      .range(0, rows / 10)
 
     val df_skew_out = df_skew
       .withColumn("credit_score", rand(seed = 10) * 739)
