@@ -4,6 +4,7 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.Column
 import org.apache.spark.ml.linalg.SQLDataTypes
+// import scala.math.random
 
 object AutoScalingDemo {
   def main(args: Array[String]): Unit = {
@@ -23,103 +24,291 @@ object AutoScalingDemo {
       // )
       .getOrCreate()
 
-    spark.conf.set("viewsEnabled", "true")
-    spark.conf.set(
-      "materializationDataset",
-      "spark_autoscaling"
-    )
-
     import spark.implicits._
 
-    // val sql1 =
-    //   """ SELECT * FROM `bigquery-public-data.wikipedia.wikidata` LIMIT 1000 """
+    val rows = 10000000
 
-    // val wiki = spark.read
-    //   .format("bigquery")
-    //   .load(sql1)
-    //   .select($"id", $"en_label", $"en_description")
-    //   .withColumn("wiki_id", $"id")
-    //   .withColumn("en_label_lower", lower($"en_label"))
-    //   .drop("id")
-    // // .repartition(1000)
+//
+    val arr = Array(
+      "Spencer",
+      "Andrade",
+      "Buck",
+      "Frank",
+      "Bryan",
+      "Bonilla",
+      "Gillespie",
+      "Mcdaniel",
+      "Frazier",
+      "Nguyen",
+      "Haley",
+      "Hodges",
+      "Rosario",
+      "Suarez",
+      "Bryant",
+      "Hess",
+      "Poole",
+      "Molina",
+      "Riley",
+      "Mejia",
+      "Rowland",
+      "Schmitt",
+      "Dougherty",
+      "Garner",
+      "Payne",
+      "Shields",
+      "Sosa",
+      "Mcguire",
+      "Lam",
+      "Marks",
+      "Casey",
+      "Sanders",
+      "Huynh",
+      "Walls",
+      "Elliott",
+      "Mann",
+      "Wagner",
+      "Levy",
+      "Scott",
+      "Ramirez",
+      "Newman",
+      "Green",
+      "Floyd",
+      "Murray",
+      "Stephenson",
+      "Conway",
+      "Noble",
+      "Avery",
+      "Hanson",
+      "Gaines",
+      "Allen",
+      "Hubbard",
+      "Schwartz",
+      "Wall",
+      "Mora",
+      "Fernandez",
+      "Johnston",
+      "Sparks",
+      "Francis",
+      "Sampson",
+      "Gardner",
+      "Booth",
+      "Peck",
+      "Rocha",
+      "Mcintosh",
+      "Mcdowell",
+      "Campos",
+      "Bass",
+      "Spears",
+      "Flowers",
+      "Walter",
+      "Bowen",
+      "Lowe",
+      "Cunningham",
+      "Cooper",
+      "Christensen",
+      "Singh",
+      "Ho",
+      "Stevens",
+      "Mercer",
+      "Wyatt",
+      "Ware",
+      "Wallace",
+      "Orozco",
+      "Schaefer",
+      "Pittman",
+      "Atkins",
+      "Foster",
+      "Choi",
+      "Osborn",
+      "Rojas",
+      "Olsen",
+      "Maynard",
+      "Sawyer",
+      "Zimmerman",
+      "Simpson",
+      "Moreno",
+      "Gould",
+      "Figueroa",
+      "Meadows",
+      "Marsh",
+      "Boyer",
+      "Potter",
+      "Cantu",
+      "Weaver",
+      "Wong",
+      "Barker",
+      "Kaiser",
+      "Proctor",
+      "Franklin",
+      "Berger",
+      "Valenzuela",
+      "Duarte",
+      "Schroeder",
+      "Tran",
+      "Goodwin",
+      "Mendez",
+      "Lang",
+      "Whitney",
+      "Jensen",
+      "Evans",
+      "Ali",
+      "Fleming",
+      "Mckenzie",
+      "Ruiz",
+      "Brewer",
+      "Frye",
+      "Bridges",
+      "Little",
+      "Waters",
+      "Black",
+      "Giles",
+      "Hogan",
+      "Knapp",
+      "Carson",
+      "Krueger",
+      "Berry",
+      "Cuevas",
+      "Glover",
+      "Ramsey",
+      "Austin",
+      "Solomon",
+      "Park",
+      "Mcmahon",
+      "Stuart",
+      "Hayden",
+      "Sullivan",
+      "Cantrell",
+      "Charles",
+      "Myers",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza",
+      "Fiorenza"
+    )
 
-    // val sql2 =
-    //   """ SELECT * FROM `bigquery-public-data.stackoverflow.posts_questions` LIMIT 1000 """
+    val df = spark.sqlContext
+      .range(0, rows) // define the number of mock data rows
 
-    // val stack = spark.read
-    //   .format("bigquery")
-    //   .load(sql2)
-    //   .filter($"title".isNotNull)
-    //   .select($"id", $"title", $"body", $"view_count")
-    //   .withColumn("stack_id", $"id")
-    //   .withColumn("title_lower", lower(col("title")))
-    //   .withColumn("keyword", explode(split($"title_lower", "[ ]")))
-    //   .drop("id")
-
-    val wiki =
-      spark.read
-        .format("bigquery")
-        .option("table", "bigquery-public-data.wikipedia.wikidata")
-        .load()
-        .select($"id", $"en_label", $"en_description")
-        .withColumn("wiki_id", $"id")
-        .withColumn("en_label_lower", lower($"en_label"))
-        .drop("id")
-        .repartition(1000)
-
-    val stack =
-      spark.read
-        .format("bigquery")
-        .option(
-          "table",
-          "bigquery-public-data.stackoverflow.posts_questions"
+    val df2 = df
+      .withColumn("credit_score", rand(seed = 10) * 739)
+      .withColumn(
+        "name",
+        element_at(
+          array(arr.map(lit(_)): _*),
+          lit(ceil(rand() * arr.size)).cast("int")
         )
-        .option(
-          "filter",
-          "view_count > 100000"
-        )
-        .load()
-        .filter($"title".isNotNull)
-        .select($"id", $"title", $"body", $"view_count")
-        .withColumn("stack_id", $"id")
-        .withColumn("title_lower", lower(col("title")))
-        .withColumn("keyword", explode(split($"title_lower", "[ ]")))
-        .drop("id")
-        .repartition(1000)
+      )
+      .withColumn("transaction_id", expr("uuid()"))
 
-    val out =
-      wiki
-        .hint("SHUFFLE_HASH")
-        .join(
-          stack,
-          wiki("en_label_lower") === stack("keyword"),
-          "inner"
+    val df_skew = spark.sqlContext
+      .range(0, rows / 10) // define the number of mock data rows
+
+    val df_skew_out = df_skew
+      .withColumn("credit_score", rand(seed = 10) * 739)
+      .withColumn(
+        "name",
+        element_at(
+          array(arr.map(lit(_)): _*),
+          lit(ceil(rand() * arr.size)).cast("int")
         )
-        .repartition(1000)
+      )
+      .withColumn("transaction_id", lit("0a0a0aa0-000a-0a0a-0aa0-000aa000a00a"))
+
+    val transactions = df2.union(df_skew_out)
+
+    val df3 = transactions
+      .select($"transaction_id")
+      .withColumn("wellsfargo", rand(seed = 1))
+      .withColumn("equifax", rand(seed = 2))
+      .withColumn("usbank", rand(seed = 3))
+
+    val df4 = df3
+      .select(
+        $"transaction_id",
+        expr(
+          "stack(3, 'wellsfargo', wellsfargo, 'equifax', equifax, 'usbank', usbank) as (fraud_model,score)"
+        )
+      )
+      .filter($"score" < .95)
+      .filter($"score" > 0.05)
+      .withColumn(
+        "fraud",
+        when($"score" > .8, "true")
+          .otherwise("false")
+      )
+
+    // val out =
+    //   wiki
+    //     .hint("SHUFFLE_HASH")
+    //     .join(
+    //       stack,
+    //       wiki("en_label_lower") === stack("keyword"),
+    //       "inner"
+    //     )
+    //     .repartition(1000)
 
     // out.explain()
-    out.write
+    df4.write
       .format("bigquery")
-      // .option(
-      //   "writeMethod",
-      //   "direct"
-      // )
       .option("temporaryGcsBucket", "cf-spark-temp")
       .mode("overwrite")
       .save(
-        "cf-data-analytics.spark_autoscaling.output"
+        "cf-data-analytics.spark_autoscaling.fraud_predictions"
       )
 
-    // stack.write
-    //   .format("bigquery")
-    //   // .option(
-    //   //   "writeMethod",
-    //   //   "direct"
-    //   // )
-    //   .option("temporaryGcsBucket", "cf-spark-temp")
-    //   .mode("overwrite")
-    //   .save(
-    //     "cf-data-analytics.spark_autoscaling.stack_skew"
-    //   )
+    transactions.write
+      .format("bigquery")
+      .option("temporaryGcsBucket", "cf-spark-temp")
+      .mode("overwrite")
+      .save(
+        "cf-data-analytics.spark_autoscaling.transactions"
+      )
+
   }
 }
