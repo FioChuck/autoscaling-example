@@ -314,13 +314,13 @@ object AutoScalingDemo {
         "cf-data-analytics.spark_autoscaling.transactions"
       )
 
-    val transactions =
+    val transactions2 =
       spark.read
         .format("bigquery")
         .option("table", "cf-data-analytics.spark_autoscaling.transactions")
         .load()
 
-    val fraud =
+    val fraud2 =
       spark.read
         .format("bigquery")
         .option(
@@ -330,9 +330,9 @@ object AutoScalingDemo {
         .load()
 
     val out =
-      transactions
+      transactions2
         .join(
-          fraud,
+          fraud2,
           Seq("transaction_id"),
           "inner"
         )
