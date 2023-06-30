@@ -10,7 +10,7 @@ object AutoScalingDemo {
 
     val spark = SparkSession.builder
       .appName("Autoscaling Demo")
-      .config("spark.sql.adaptive.enabled", "false")
+      .config("spark.sql.adaptive.enabled", "true")
 
       // .config("spark.master", "local[16]") // local dev
       // .config(
