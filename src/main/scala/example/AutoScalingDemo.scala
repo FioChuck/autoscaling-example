@@ -10,6 +10,8 @@ object AutoScalingDemo {
 
     val spark = SparkSession.builder
       .appName("Autoscaling Demo")
+      .config("spark.sql.adaptive.enabled", "false")
+
       // .config("spark.master", "local[16]") // local dev
       // .config(
       //   "spark.hadoop.fs.AbstractFileSystem.gs.impl",
