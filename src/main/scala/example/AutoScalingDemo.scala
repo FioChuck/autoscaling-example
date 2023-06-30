@@ -265,7 +265,7 @@ object AutoScalingDemo {
       .withColumn("transaction_id", lit("0a0a0aa0-000a-0a0a-0aa0-000aa000a00a"))
 
     val transactions =
-      df2.union(df_skew_out).select($"credit_score", $"name", "transaction_id")
+      df2.union(df_skew_out).select($"credit_score", $"name", $"transaction_id")
 
     /// Create Fraud Predictions Table /////
     val df3 = transactions
