@@ -276,11 +276,11 @@ object AutoScalingDemo {
         .option("table", "cf-data-analytics.spark_autoscaling.transactions")
         .load()
 
-    transactions
-      .groupBy(spark_partition_id)
-      .count()
-      .orderBy(asc("count"))
-      .show()
+    // transactions
+    //   .groupBy(spark_partition_id)
+    //   .count()
+    //   .orderBy(asc("count"))
+    //   .show()
 
     val fraud =
       spark.read
@@ -298,7 +298,7 @@ object AutoScalingDemo {
           Seq("transaction_id"),
           "inner"
         )
-        .repartition(100)
+    // .repartition(100)
 
     out.write
       .format("bigquery")
