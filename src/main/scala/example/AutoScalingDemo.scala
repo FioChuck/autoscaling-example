@@ -30,7 +30,6 @@ object AutoScalingDemo {
     val rows = 500000000
     // val rows = 1000
 
-//
     val arr = Array(
       "Spencer",
       "Andrade",
@@ -182,55 +181,6 @@ object AutoScalingDemo {
       "Cantrell",
       "Charles",
       "Myers",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
-      "Fiorenza",
       "Fiorenza"
     )
 
@@ -270,15 +220,15 @@ object AutoScalingDemo {
     /// Create Fraud Predictions Table /////
     val df3 = transactions
       .select($"transaction_id")
-      .withColumn("wellsfargo", rand(seed = 1))
-      .withColumn("equifax", rand(seed = 2))
-      .withColumn("usbank", rand(seed = 3))
+      .withColumn("profiling", rand(seed = 1))
+      .withColumn("link_analysis", rand(seed = 2))
+      .withColumn("unsupervised_ml", rand(seed = 3))
 
     val df4 = df3
       .select(
         $"transaction_id",
         expr(
-          "stack(3, 'wellsfargo', wellsfargo, 'equifax', equifax, 'usbank', usbank) as (fraud_model,score)"
+          "stack(3, 'profiling', profiling, 'link_analysis', link_analysis, 'unsupervised_ml', unsupervised_ml) as (fraud_model,score)"
         )
       )
       .filter($"score" < .95)
@@ -291,9 +241,9 @@ object AutoScalingDemo {
       .filter($"transaction_id" !== "0a0a0aa0-000a-0a0a-0aa0-000aa000a00a")
 
     val fraud_skew = spark.sqlContext
-      .range(0, 1) // define the number of mock data rows
+      .range(0, 1)
       .withColumn("transaction_id", lit("0a0a0aa0-000a-0a0a-0aa0-000aa000a00a"))
-      .withColumn("fraud_model", lit("equifax"))
+      .withColumn("fraud_model", lit("sequence_matching"))
       .withColumn("score", lit(0))
       .withColumn("fraud", lit("false"))
       .select($"transaction_id", $"fraud_model", $"score", $"fraud")
