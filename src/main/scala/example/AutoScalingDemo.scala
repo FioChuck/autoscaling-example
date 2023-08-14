@@ -6,7 +6,7 @@ import org.apache.spark.sql.Column
 import org.apache.spark.ml.linalg.SQLDataTypes
 import org.apache.hadoop.security.UserGroupInformation
 
-object AutoScalingDemo {
+object AutoScalingDemo extends DataGenerator {
   def main(args: Array[String]): Unit = {
 
     // UserGroupInformation.setLoginUser(
@@ -16,20 +16,30 @@ object AutoScalingDemo {
     val spark = SparkSession.builder
       .appName("Autoscaling Demo")
       .config("spark.sql.adaptive.enabled", "false")
-      // .config("spark.master", "local[16]") // local dev
-      // .config(
-      //   "spark.hadoop.fs.AbstractFileSystem.gs.impl",
-      //   "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
-      // )
-      // .config("spark.hadoop.fs.gs.project.id", "cf-data-analytics")
-      // .config("spark.hadoop.google.cloud.auth.service.account.enable", "true")
-      // .config(
-      //   "spark.hadoop.google.cloud.auth.service.account.json.keyfile",
-      //   "/Users/chasf/Desktop/cf-data-analytics-f8ccb6c85b39.json"
-      // )
+      .config("spark.master", "local[16]") // local dev
+      .config(
+        "spark.hadoop.fs.AbstractFileSystem.gs.impl",
+        "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS"
+      )
+      .config("spark.hadoop.fs.gs.project.id", "cf-data-analytics")
+      .config("spark.hadoop.google.cloud.auth.service.account.enable", "true")
+      .config(
+        "spark.hadoop.google.cloud.auth.service.account.json.keyfile",
+        "/Users/chasf/Desktop/cf-data-analytics-f8ccb6c85b39.json"
+      )
       .getOrCreate()
 
     import spark.implicits._
+
+    val df_out = data_gen(spark)
+
+    data_write(
+      spark,
+      df_out,
+      "cf-data-analytics.partition_test.example_table_nopartition"
+    )
+
+    // print("done")
 
     // val rows = 500000000
     // // val rows = 1000
@@ -270,11 +280,11 @@ object AutoScalingDemo {
     //     "cf-data-analytics.spark_autoscaling.transactions"
     //   )
 
-    val transactions =
-      spark.read
-        .format("bigquery")
-        .option("table", "cf-data-analytics.spark_autoscaling.transactions")
-        .load()
+    // val transactions =
+    //   spark.read
+    //     .format("bigquery")
+    //     .option("table", "cf-data-analytics.spark_autoscaling.transactions")
+    //     .load()
 
     // transactions
     //   .groupBy(spark_partition_id)
@@ -282,31 +292,31 @@ object AutoScalingDemo {
     //   .orderBy(asc("count"))
     //   .show()
 
-    val fraud =
-      spark.read
-        .format("bigquery")
-        .option(
-          "table",
-          "cf-data-analytics.spark_autoscaling.fraud_predictions"
-        )
-        .load()
+    // val fraud =
+    //   spark.read
+    //     .format("bigquery")
+    //     .option(
+    //       "table",
+    //       "cf-data-analytics.spark_autoscaling.fraud_predictions"
+    //     )
+    //     .load()
 
-    val out =
-      transactions
-        .join(
-          fraud,
-          Seq("transaction_id"),
-          "inner"
-        )
-    // .repartition(100)
+    // val out =
+    //   transactions
+    //     .join(
+    //       fraud,
+    //       Seq("transaction_id"),
+    //       "inner"
+    //     )
+    // // .repartition(100)
 
-    out.write
-      .format("bigquery")
-      .option("temporaryGcsBucket", "cf-spark-temp")
-      .mode("overwrite")
-      .save(
-        "cf-data-analytics.spark_autoscaling.join_result"
-      )
+    // out.write
+    //   .format("bigquery")
+    //   .option("temporaryGcsBucket", "cf-spark-temp")
+    //   .mode("overwrite")
+    //   .save(
+    //     "cf-data-analytics.spark_autoscaling.join_result"
+    //   )
 
   }
 }
